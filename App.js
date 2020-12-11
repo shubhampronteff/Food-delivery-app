@@ -4,10 +4,11 @@ import { StyleSheet, Text, View } from "react-native";
 import SignUp from "./Views/SignUp";
 import Login from "./Views/Login";
 import Uploaddoc from "./Views/Uploaddoc";
+import Cam from "./Views/Cam";
 export default function App() {
   return (
     <View style={styles.container}>
-      <Login />
+      <Uploaddoc />
     </View>
   );
 }
