@@ -13,6 +13,8 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
+  Modal,
+  TouchableHighlight,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
@@ -27,9 +29,47 @@ function Uploaddoc() {
   const [image1, setImage1] = useState(null);
   const [dlno, setDlNo] = useState("");
   const [expdate, setExpDate] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible1, setModalVisible1] = useState(false);
   const keyboardVerticalOffset =
     Platform.OS === "android" ? ht * 0.25 : -ht * 0.1;
 
+  const camera = async () => {
+    try {
+      let result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        setImage(result.uri);
+        setModalVisible(false);
+      }
+
+      console.log(result);
+    } catch (E) {
+      console.log(E);
+    }
+  };
+  const camera1 = async () => {
+    try {
+      let result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        setImage1(result.uri);
+        setModalVisible1(false);
+      }
+
+      console.log(result);
+    } catch (E) {
+      console.log(E);
+    }
+  };
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -42,6 +82,7 @@ function Uploaddoc() {
 
     if (!result.cancelled) {
       setImage(result.uri);
+      setModalVisible(false);
     }
   };
   const pickImage1 = async () => {
@@ -56,6 +97,7 @@ function Uploaddoc() {
 
     if (!result.cancelled) {
       setImage1(result.uri);
+      setModalVisible1(false);
     }
   };
   return (
@@ -180,7 +222,7 @@ function Uploaddoc() {
                     >
                       {image == null ? (
                         <TouchableOpacity
-                          onPress={pickImage}
+                          onPress={() => setModalVisible(true)}
                           style={{
                             width: wd * 0.73,
                             backgroundColor: "#E8E8E8",
@@ -204,7 +246,7 @@ function Uploaddoc() {
                         </TouchableOpacity>
                       ) : (
                         <TouchableOpacity
-                          onPress={pickImage}
+                          onPress={() => setModalVisible(true)}
                           style={{
                             width: wd * 0.73,
                             backgroundColor: "#E8E8E8",
@@ -236,7 +278,7 @@ function Uploaddoc() {
                     >
                       {image1 == null ? (
                         <TouchableOpacity
-                          onPress={pickImage}
+                          onPress={() => setModalVisible1(true)}
                           style={{
                             width: wd * 0.73,
                             backgroundColor: "#E8E8E8",
@@ -258,7 +300,7 @@ function Uploaddoc() {
                         </TouchableOpacity>
                       ) : (
                         <TouchableOpacity
-                          onPress={pickImage1}
+                          onPress={() => setModalVisible1(true)}
                           style={{
                             width: wd * 0.73,
                             backgroundColor: "#E8E8E8",
@@ -272,7 +314,7 @@ function Uploaddoc() {
                           }}
                         >
                           <Image
-                            source={{ uri: image }}
+                            source={{ uri: image1 }}
                             style={{ width: wd * 0.73, height: ht * 0.24 }}
                           />
                         </TouchableOpacity>
@@ -373,6 +415,180 @@ function Uploaddoc() {
           </KeyboardAvoidingView>
         </View>
         {/* ScrollView Ends */}
+        <View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+            }}
+          >
+            <View
+              style={{
+                width: wd * 1,
+                height: ht * 0.3,
+                backgroundColor: "#202020",
+                position: "absolute",
+                bottom: 0,
+                borderTopLeftRadius: ht * 0.035,
+                borderTopRightRadius: ht * 0.035,
+              }}
+            >
+              <View
+                style={{
+                  flex: 1,
+
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ color: "white", fontWeight: "700" }}>
+                  Select Source
+                </Text>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: "row",
+                }}
+              >
+                <TouchableOpacity
+                  onPress={camera}
+                  style={{ flex: 1, alignItems: "center" }}
+                >
+                  <Image
+                    style={{ width: wd * 0.14, height: ht * 0.07 }}
+                    source={require("../assets/Rapido-logo.png")}
+                  />
+                  <Text style={{ color: "white" }}>Camera</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={pickImage}
+                  style={{ flex: 1, alignItems: "center" }}
+                >
+                  <Image
+                    style={{ width: wd * 0.14, height: ht * 0.07 }}
+                    source={require("../assets/iphoneios11fileapp.png")}
+                  />
+                  <Text style={{ color: "white" }}>Files</Text>
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <TouchableHighlight
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: wd * 0.75,
+                    height: ht * 0.062,
+                    backgroundColor: "#484848",
+                    borderRadius: ht * 0.04,
+                  }}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                  }}
+                >
+                  <Text style={{ color: "white", fontWeight: "600" }}>
+                    Cancel
+                  </Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </Modal>
+        </View>
+        <View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible1}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+            }}
+          >
+            <View
+              style={{
+                width: wd * 1,
+                height: ht * 0.3,
+                backgroundColor: "#202020",
+                position: "absolute",
+                bottom: 0,
+                borderTopLeftRadius: ht * 0.035,
+                borderTopRightRadius: ht * 0.035,
+              }}
+            >
+              <View
+                style={{
+                  flex: 1,
+
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ color: "white", fontWeight: "700" }}>
+                  Select Source
+                </Text>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: "row",
+                }}
+              >
+                <TouchableOpacity
+                  onPress={camera1}
+                  style={{ flex: 1, alignItems: "center" }}
+                >
+                  <Image
+                    style={{ width: wd * 0.14, height: ht * 0.07 }}
+                    source={require("../assets/Rapido-logo.png")}
+                  />
+                  <Text style={{ color: "white" }}>Camera</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={pickImage1}
+                  style={{ flex: 1, alignItems: "center" }}
+                >
+                  <Image
+                    style={{ width: wd * 0.14, height: ht * 0.07 }}
+                    source={require("../assets/iphoneios11fileapp.png")}
+                  />
+                  <Text style={{ color: "white" }}>Files</Text>
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <TouchableHighlight
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: wd * 0.75,
+                    height: ht * 0.062,
+                    backgroundColor: "#484848",
+                    borderRadius: ht * 0.04,
+                  }}
+                  onPress={() => {
+                    setModalVisible1(!modalVisible1);
+                  }}
+                >
+                  <Text style={{ color: "white", fontWeight: "600" }}>
+                    Cancel
+                  </Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </Modal>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
