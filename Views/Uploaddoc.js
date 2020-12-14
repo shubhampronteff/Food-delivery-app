@@ -24,7 +24,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 const ht = Dimensions.get("window").height;
 const wd = Dimensions.get("window").width;
 
-function Uploaddoc() {
+function Uploaddoc({ navigation }) {
   const [image, setImage] = useState(null);
   const [image1, setImage1] = useState(null);
   const [dlno, setDlNo] = useState("");
@@ -387,6 +387,7 @@ function Uploaddoc() {
                       </View>
                     </View>
                     <TouchableOpacity
+                      onPress={() => navigation.navigate("Login")}
                       style={{
                         backgroundColor: "#FFC928",
                         width: wd * 0.8,

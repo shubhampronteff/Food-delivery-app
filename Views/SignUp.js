@@ -19,7 +19,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 const wd = Dimensions.get("window").width;
 const ht = Dimensions.get("window").height;
 
-function SignUp() {
+function SignUp({ navigation }) {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [phoneno, setPhoneNo] = useState("");
   const [password, setPassword] = useState("");
@@ -282,6 +282,7 @@ function SignUp() {
                   </Text>
                 </View>
                 <TouchableOpacity
+                  onPress={() => navigation.navigate("Uploaddoc")}
                   style={{
                     backgroundColor: "#FFC928",
                     width: wd * 0.8,

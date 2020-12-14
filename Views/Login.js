@@ -18,7 +18,7 @@ import { Entypo } from "@expo/vector-icons";
 const wd = Dimensions.get("window").width;
 const ht = Dimensions.get("window").height;
 
-function Login() {
+function Login({ navigation }) {
   const [phoneno, setPhoneNo] = useState("");
   const [password, setPassword] = useState("");
   const [seepassword, setSeePassword] = useState(true);
@@ -204,7 +204,9 @@ function Login() {
                       Want to become a rapido Captain ?{" "}
                     </Text>
                   </View>
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("SignUp")}
+                  >
                     <Text
                       style={{
                         color: "#008FED",
@@ -241,6 +243,7 @@ function Login() {
                   </Text>
                 </View>
                 <TouchableOpacity
+                  onPress={() => navigation.navigate("Home")}
                   style={{
                     backgroundColor: "#FFC928",
                     width: wd * 0.8,
