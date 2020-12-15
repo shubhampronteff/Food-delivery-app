@@ -243,7 +243,9 @@ function Login({ navigation }) {
                   </Text>
                 </View>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("Home")}
+                  onPress={() =>
+                    navigation.navigate("Home", { screen: "Main" })
+                  }
                   style={{
                     backgroundColor: "#FFC928",
                     width: wd * 0.8,

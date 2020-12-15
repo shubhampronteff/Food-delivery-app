@@ -39,14 +39,12 @@ function Home({ navigation }) {
     longitude: 77.216721,
   });
 
-  console.log(DrawerActions);
   const toggleSwitch = () => {
     setIsEnabled((previousState) => !previousState);
   };
   const toggleSwitch1 = () => {
     setIsEnabled1((previousState) => !previousState);
   };
-  console.log(navigation);
 
   return (
     <View>
@@ -361,10 +359,11 @@ function Home({ navigation }) {
             <View
               style={{
                 width: wd * 0.141,
-                height: ht * 0.1,
+                height: ht * 0.145,
                 backgroundColor: "white",
                 position: "absolute",
-                top: ht * 0.06,
+                top: ht * 0.028,
+                zIndex: -1,
               }}
             ></View>
             <View
