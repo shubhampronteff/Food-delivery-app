@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -18,6 +18,7 @@ const ht = Dimensions.get("window").height;
 const wd = Dimensions.get("window").width;
 
 function AcceptRide({ navigation }) {
+  const [timerplaying, setTimePlaying] = useState(true);
   const [coords, setCoords] = useState({
     latitude: 17.4387,
     longitude: 78.3946,
@@ -75,7 +76,17 @@ function AcceptRide({ navigation }) {
             flexDirection: "row",
           }}
         >
-          <Fontisto name="motorcycle" size={34} color="#FFC928" />
+          {/* <Fontisto name="motorcycle" size={34} color="#FFC928" /> */}
+          <Image
+            style={{
+              width: wd * 0.1,
+              height: ht * 0.05,
+              borderWidth: wd * 0.006,
+              borderRadius: ht * 0.1,
+              borderColor: "white",
+            }}
+            source={require("../assets/logo.jpeg")}
+          />
           <Text
             style={{
               color: "white",
@@ -84,11 +95,15 @@ function AcceptRide({ navigation }) {
               paddingLeft: wd * 0.03,
             }}
           >
-            Bike Taxi
+            Accept Delivery
           </Text>
         </View>
       </View>
       <TouchableOpacity
+        onPress={() => {
+          setTimePlaying(false);
+          navigation.navigate("Home");
+        }}
         style={{
           width: wd * 0.24,
           height: ht * 0.048,
@@ -125,7 +140,7 @@ function AcceptRide({ navigation }) {
             borderRadius: ht * 0.1,
             borderColor: "white",
           }}
-          source={require("../assets/Rapido-logo.png")}
+          source={require("../assets/logo.jpeg")}
         />
       </TouchableOpacity>
       <View
@@ -138,12 +153,13 @@ function AcceptRide({ navigation }) {
         }}
       >
         <CountdownCircleTimer
-          isPlaying={true}
-          duration={25}
+          isPlaying={timerplaying}
+          duration={5}
           colors={"#25A665"}
           size={100}
           strokeWidth={7}
           rotation={"counterclockwise"}
+          onComplete={() => navigation.navigate("Home")}
         >
           {({ remainingTime }) => (
             <Animated.Text style={{ color: "black", fontSize: ht * 0.05 }}>
@@ -199,6 +215,10 @@ function AcceptRide({ navigation }) {
           }}
         >
           <TouchableOpacity
+            onPress={() => {
+              setTimePlaying(false);
+              navigation.navigate("Arrived");
+            }}
             style={{
               backgroundColor: "#FFC928",
               width: wd * 0.8,
@@ -218,7 +238,7 @@ function AcceptRide({ navigation }) {
                 fontSize: ht * 0.024,
               }}
             >
-              ACCEPT RIDE
+              ACCEPT ORDER
             </Text>
           </TouchableOpacity>
         </View>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -6,22 +6,25 @@ import {
   StatusBar,
   Text,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import { DrawerActions } from "@react-navigation/native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { MaterialIcons } from "@expo/vector-icons";
 import { Zocial } from "@expo/vector-icons";
-import { Feather } from "@expo/vector-icons";
-import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import MapView, { Marker, Circle } from "react-native-maps";
 import { Entypo } from "@expo/vector-icons";
+import * as Location from "expo-location";
+import Constants from "expo-constants";
+import MapViewDirections from "react-native-maps-directions";
 
 const ht = Dimensions.get("window").height;
 const wd = Dimensions.get("window").width;
 
 function Arrived({ navigation }) {
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
   const [coords, setCoords] = useState({
     latitude: 17.4387,
     longitude: 78.3946,
@@ -36,7 +39,62 @@ function Arrived({ navigation }) {
     latitude: 28.6139,
     longitude: 77.216721,
   });
+  const [coordinates1, setCoordinates1] = useState({
+    latitude: 29.6139,
+    longitude: 78.216721,
+  });
+  useEffect(() => {
+    if (Platform.OS === "android" && !Constants.isDevice) {
+      setErrorMsg(
+        "Oops, this will not work on Sketch in an Android emulator. Try it on your device!"
+      );
+    } else {
+      myLocation();
+    }
+  }, []);
 
+  const myLocation = async () => {
+    let { status } = await Location.requestPermissionsAsync();
+    if (status !== "granted") {
+      setErrorMsg("Permission to access location was denied");
+      return;
+    } else {
+      try {
+        let location = await Location.getCurrentPositionAsync({
+          enableHighAccuracy: true,
+        });
+        setLocation(location);
+        if (location) {
+          setRegion({
+            ...region,
+            longitude: location.coords.longitude,
+            latitude: location.coords.latitude,
+          });
+          setCoordinates({
+            ...coordinates,
+            longitude: location.coords.longitude,
+            latitude: location.coords.latitude,
+          });
+          setCoordinates1({
+            ...coordinates1,
+            longitude: location.coords.longitude,
+            latitude: location.coords.latitude + 0.03,
+          });
+          setCoords({
+            ...coords,
+            longitude: location.coords.longitude,
+            latitude: location.coords.latitude,
+          });
+        }
+      } catch (e) {
+        alert(
+          "We could not find your position. Please make sure your location service provider is on"
+        );
+      }
+    }
+  };
+  console.log(coordinates1);
+  console.log(coordinates);
   return (
     <View>
       <StatusBar barStyle="light-content" backgroundColor="#000000" />
@@ -135,6 +193,14 @@ function Arrived({ navigation }) {
           zoomControlEnabled={true}
         >
           <Marker coordinate={coordinates} pinColor="green" />
+          <Marker coordinate={coordinates1} pinColor="red" />
+          <MapViewDirections
+            origin={coordinates}
+            destination={coordinates1}
+            apikey={"AIzaSyBEzK3yzhZlE4YuSg-cXUktrd-JmwN7WfM"}
+            strokeWidth={3}
+            strokeColor="hotpink"
+          />
           {/* <Circle center={coords} radius={50} fillColor="transparent" /> */}
         </MapView>
       </View>

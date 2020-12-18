@@ -27,6 +27,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "It is a Delivery App made for delivery people. It will help them to know the exact location of the order etc..."
   }
 }

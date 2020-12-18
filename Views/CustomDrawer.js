@@ -155,7 +155,7 @@ function CustomDrawer({ navigation }) {
                   textAlignVertical: "top",
                 }}
               >
-                Rapido ID-Card
+                ID-Card
               </Text>
             </View>
           </TouchableOpacity>
@@ -195,7 +195,7 @@ function CustomDrawer({ navigation }) {
                   textAlignVertical: "top",
                 }}
               >
-                Earning/Redeem
+                Payment History
               </Text>
             </View>
           </TouchableOpacity>
@@ -235,12 +235,12 @@ function CustomDrawer({ navigation }) {
                   textAlignVertical: "top",
                 }}
               >
-                Incentives
+                Orders
               </Text>
             </View>
           </TouchableOpacity>
           {/* Incentives Ends */}
-          {/* SerVice manager Starts */}
+          {/*     
           <TouchableOpacity
             style={{
               flexDirection: "row",
@@ -283,8 +283,7 @@ function CustomDrawer({ navigation }) {
               </Text>
             </View>
           </TouchableOpacity>
-          {/*   Service manager Ends */}
-          {/* Refer a friend Starts */}
+      
           <TouchableOpacity
             style={{
               flexDirection: "row",
@@ -323,8 +322,7 @@ function CustomDrawer({ navigation }) {
               </Text>
             </View>
           </TouchableOpacity>
-          {/* Refer a friend Ends */}
-          {/* Welfare Program Starts */}
+       
           <TouchableOpacity
             style={{
               flexDirection: "row",
@@ -353,7 +351,7 @@ function CustomDrawer({ navigation }) {
               </Text>
             </View>
           </TouchableOpacity>
-          {/* Welfare Program Ends */}
+          */}
           {/* Help/Support Starts */}
           <TouchableOpacity
             style={{
@@ -395,7 +393,6 @@ function CustomDrawer({ navigation }) {
             </View>
           </TouchableOpacity>
           {/* Help/Support Ends */}
-
           {/* Shortcuts Section Starts */}
           <View
             style={{
@@ -408,7 +405,7 @@ function CustomDrawer({ navigation }) {
             <Text style={{ color: "#989898" }}>Shortcuts</Text>
           </View>
           {/* My Route Booking Starts */}
-          <View
+        {/*   <View
             style={{
               flexDirection: "row",
               height: ht * 0.07,
@@ -466,8 +463,7 @@ function CustomDrawer({ navigation }) {
               />
             </View>
           </View>
-          {/* My Route Booking Starts */}
-          {/* Auto Accept Orders Starts */}
+        
           <View
             style={{
               flexDirection: "row",
@@ -516,7 +512,7 @@ function CustomDrawer({ navigation }) {
               />
             </View>
           </View>
-          {/* Auto Accept Orders Ends */}
+          */}
           {/* Buttons Started */}
           <View
             style={{
@@ -559,7 +555,7 @@ function CustomDrawer({ navigation }) {
               }}
             >
               <Text style={{ color: "white", fontWeight: "700" }}>
-                Accept Ride
+                Accept Order
               </Text>
             </TouchableOpacity>
           </View>
