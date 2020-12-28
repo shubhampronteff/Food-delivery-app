@@ -405,7 +405,7 @@ function CustomDrawer({ navigation }) {
             <Text style={{ color: "#989898" }}>Shortcuts</Text>
           </View>
           {/* My Route Booking Starts */}
-        {/*   <View
+          {/*   <View
             style={{
               flexDirection: "row",
               height: ht * 0.07,
@@ -540,7 +540,7 @@ function CustomDrawer({ navigation }) {
               height: ht * 0.08,
               justifyContent: "center",
               alignItems: "center",
-              marginBottom: ht * 0.02,
+              marginBottom: ht * 0.005,
             }}
           >
             <TouchableOpacity
@@ -557,6 +557,29 @@ function CustomDrawer({ navigation }) {
               <Text style={{ color: "white", fontWeight: "700" }}>
                 Accept Order
               </Text>
+            </TouchableOpacity>
+          </View>
+
+          <View
+            style={{
+              height: ht * 0.08,
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: ht * 0.02,
+            }}
+          >
+            <TouchableOpacity
+              onPress={() => navigation.push("Login")}
+              style={{
+                width: wd * 0.4,
+                backgroundColor: "#36B777",
+                justifyContent: "center",
+                alignItems: "center",
+                height: ht * 0.05,
+                borderRadius: ht * 0.005,
+              }}
+            >
+              <Text style={{ color: "white", fontWeight: "700" }}>Log Out</Text>
             </TouchableOpacity>
           </View>
           {/* Buttons Ended */}

@@ -17,6 +17,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import MapView, { Marker, Circle } from "react-native-maps";
 import { Entypo } from "@expo/vector-icons";
 import { DrawerActions } from "@react-navigation/native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const ht = Dimensions.get("window").height;
 const wd = Dimensions.get("window").width;
@@ -24,6 +25,7 @@ const wd = Dimensions.get("window").width;
 function Home({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const [isEnabled1, setIsEnabled1] = useState(false);
+  const [dropdown, setDropDown] = useState(false);
   const [coords, setCoords] = useState({
     latitude: 17.4387,
     longitude: 78.3946,
@@ -45,7 +47,7 @@ function Home({ navigation }) {
   const toggleSwitch1 = () => {
     setIsEnabled1((previousState) => !previousState);
   };
-
+  console.log("dropdown", dropdown);
   return (
     <View>
       <StatusBar barStyle="light-content" backgroundColor="#000000" />
@@ -116,7 +118,7 @@ function Home({ navigation }) {
           </View>
         </View>
         <TouchableOpacity
-          onPress={() => alert("In Progress...")}
+          onPress={() => navigation.navigate("Notification")}
           style={{
             flex: 1,
             justifyContent: "center",
@@ -135,6 +137,7 @@ function Home({ navigation }) {
           backgroundColor: "#515151",
           height: ht * 0.064,
           elevation: 5,
+          zIndex: 2,
         }}
       >
         <View
@@ -169,7 +172,7 @@ function Home({ navigation }) {
           </Text>
         </View>
         <TouchableOpacity
-          onPress={() => alert("In Progress...")}
+          onPress={() => setDropDown(!dropdown)}
           style={{
             flex: 1,
             justifyContent: "center",
@@ -177,10 +180,207 @@ function Home({ navigation }) {
             paddingRight: wd * 0.02,
           }}
         >
-          <MaterialIcons name="arrow-drop-down" size={28} color="white" />
+          {dropdown ? (
+            <MaterialIcons name="arrow-drop-up" size={28} color="white" />
+          ) : (
+            <MaterialIcons name="arrow-drop-down" size={28} color="white" />
+          )}
         </TouchableOpacity>
+        {/* Drop Modal Starts */}
+        {dropdown ? (
+          <View
+            style={{
+              backgroundColor: "#F5F5F5",
+              height: ht * 0.2,
+              position: "absolute",
+              top: ht * 0.064,
+              width: wd * 1,
+              elevation: 5,
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+            }}
+          >
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate("TotalDelivery")}
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: "#DCDCDC",
+                  width: wd * 0.28,
+                  height: ht * 0.15,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: ht * 0.005,
+                }}
+              >
+                <View
+                  style={{
+                    backgroundColor: "#F5F5F5",
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    width: wd * 0.1,
+                    height: ht * 0.045,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderBottomLeftRadius: ht * 0.03,
+                    elevation: 0,
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="truck-check"
+                    size={24}
+                    color="#15BF5F"
+                  />
+                </View>
+                <Text
+                  style={{
+                    fontWeight: "700",
+                    color: "#15BF5F",
+                    fontSize: ht * 0.028,
+                  }}
+                >
+                  200
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontWeight: "700",
+                    marginLeft: wd * 0.03,
+                    marginRight: wd * 0.03,
+                  }}
+                >
+                  Total Delivery
+                </Text>
+              </View>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate("TodayDelivery")}
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: "#DCDCDC",
+                  width: wd * 0.28,
+                  height: ht * 0.15,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: ht * 0.005,
+                }}
+              >
+                <View
+                  style={{
+                    backgroundColor: "#F5F5F5",
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    width: wd * 0.1,
+                    height: ht * 0.045,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderBottomLeftRadius: ht * 0.03,
+                    elevation: 0,
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="truck-delivery"
+                    size={24}
+                    color="#2F80EC"
+                  />
+                </View>
+                <Text
+                  style={{
+                    fontWeight: "700",
+                    color: "#2F80EC",
+                    fontSize: ht * 0.028,
+                  }}
+                >
+                  5
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontWeight: "700",
+                    marginLeft: wd * 0.03,
+                    marginRight: wd * 0.03,
+                  }}
+                >
+                  Today's Delivery
+                </Text>
+              </View>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate("CancelDelivery")}
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: "#DCDCDC",
+                  width: wd * 0.28,
+                  height: ht * 0.15,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: ht * 0.005,
+                }}
+              >
+                <View
+                  style={{
+                    backgroundColor: "#F5F5F5",
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    width: wd * 0.1,
+                    height: ht * 0.045,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderBottomLeftRadius: ht * 0.03,
+                    elevation: 0,
+                  }}
+                >
+                  <MaterialCommunityIcons
+                    name="truck"
+                    size={24}
+                    color="#FB234A"
+                  />
+                </View>
+                <Text
+                  style={{
+                    fontWeight: "700",
+                    color: "#FB234A",
+                    fontSize: ht * 0.028,
+                  }}
+                >
+                  40
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontWeight: "700",
+                    marginLeft: wd * 0.03,
+                    marginRight: wd * 0.03,
+                  }}
+                >
+                  Cancelled Delivery
+                </Text>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+        ) : null}
+        {/* Drop Modal Ends */}
       </View>
       {/* Earning Haeder Ends */}
+
       {/* Live Section Starts */}
       <View
         style={{

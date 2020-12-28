@@ -344,6 +344,7 @@ function Uploaddoc({ navigation }) {
                         style={styles.inputfields}
                         selectionColor="black"
                         onChangeText={(text) => setDlNo(text)}
+                        autoCapitalize="characters"
                       />
                       <View
                         style={{

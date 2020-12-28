@@ -7,6 +7,11 @@ import CustomDrawer from "./Views/CustomDrawer";
 import Screen1 from "./Views/Screen1";
 import AcceptRide from "./Views/AcceptRide";
 import Arrived from "./Views/Arrived";
+import Notification from "./Views/Notification";
+import TotalDelivery from "./Views/TotalDelivery";
+import CancelDelivery from "./Views/CancelDelivery";
+import TodayDelivery from "./Views/TodayDelivery";
+import ForgetPassword from "./Views/ForgetPassword";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -25,6 +30,11 @@ function Routes() {
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Uploaddoc" component={Uploaddoc} />
         <Stack.Screen name="Home" component={HomeDrawer} />
+        <Stack.Screen name="Notification" component={Notification} />
+        <Stack.Screen name="TotalDelivery" component={TotalDelivery} />
+        <Stack.Screen name="TodayDelivery" component={TodayDelivery} />
+        <Stack.Screen name="CancelDelivery" component={CancelDelivery} />
+        <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
       </Stack.Navigator>
     </NavigationContainer>
   );

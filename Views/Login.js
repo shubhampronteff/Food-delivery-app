@@ -165,6 +165,7 @@ function Login({ navigation }) {
                 </View>
               </View>
               <TouchableOpacity
+                onPress={() => navigation.navigate("ForgetPassword")}
                 style={{
                   // backgroundColor: "red",
                   width: wd * 0.85,
@@ -243,6 +244,13 @@ function Login({ navigation }) {
                   </Text>
                 </View>
                 <TouchableOpacity
+                  // onPress={() => {
+                  //   if (phoneno === "" || password === "") {
+                  //     alert("Enter Phone and Password...");
+                  //   } else {
+                  //     navigation.navigate("Home", { screen: "Main" });
+                  //   }
+                  // }}
                   onPress={() =>
                     navigation.navigate("Home", { screen: "Main" })
                   }

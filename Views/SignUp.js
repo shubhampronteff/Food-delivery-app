@@ -44,7 +44,10 @@ function SignUp({ navigation }) {
               alignItems: "center",
             }}
           >
-            <TouchableOpacity style={{ flex: 1 }}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Login")}
+              style={{ flex: 1 }}
+            >
               <Feather name="arrow-left" size={24} color="black" />
             </TouchableOpacity>
             <View
@@ -245,7 +248,9 @@ function SignUp({ navigation }) {
                       You are an existing Rapido Captain ?{" "}
                     </Text>
                   </View>
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("Login")}
+                  >
                     <Text
                       style={{
                         color: "#008FED",
@@ -282,7 +287,17 @@ function SignUp({ navigation }) {
                   </Text>
                 </View>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("Uploaddoc")}
+                  onPress={() => {
+                    if (
+                      phoneno === "" ||
+                      password === "" ||
+                      confirmpassword === ""
+                    ) {
+                      alert("Fill all the Fileds...");
+                    } else {
+                      navigation.navigate("Uploaddoc");
+                    }
+                  }}
                   style={{
                     backgroundColor: "#FFC928",
                     width: wd * 0.8,
