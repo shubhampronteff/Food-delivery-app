@@ -298,6 +298,7 @@ function SignUp({ navigation }) {
                       navigation.navigate("Uploaddoc");
                     }
                   }}
+                  // onPress={() => navigation.navigate("Uploaddoc")}
                   style={{
                     backgroundColor: "#FFC928",
                     width: wd * 0.8,

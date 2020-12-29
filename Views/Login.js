@@ -244,16 +244,16 @@ function Login({ navigation }) {
                   </Text>
                 </View>
                 <TouchableOpacity
-                  // onPress={() => {
-                  //   if (phoneno === "" || password === "") {
-                  //     alert("Enter Phone and Password...");
-                  //   } else {
-                  //     navigation.navigate("Home", { screen: "Main" });
-                  //   }
-                  // }}
-                  onPress={() =>
-                    navigation.navigate("Home", { screen: "Main" })
-                  }
+                  onPress={() => {
+                    if (phoneno === "" || password === "") {
+                      alert("Enter Phone and Password...");
+                    } else {
+                      navigation.navigate("Home", { screen: "Main" });
+                    }
+                  }}
+                  // onPress={() =>
+                  //   navigation.navigate("Home", { screen: "Main" })
+                  // }
                   style={{
                     backgroundColor: "#FFC928",
                     width: wd * 0.8,

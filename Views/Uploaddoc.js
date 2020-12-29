@@ -31,6 +31,7 @@ function Uploaddoc({ navigation }) {
   const [expdate, setExpDate] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible1, setModalVisible1] = useState(false);
+  const [date, setDate] = useState("");
   const keyboardVerticalOffset =
     Platform.OS === "android" ? ht * 0.25 : -ht * 0.1;
 
@@ -355,6 +356,7 @@ function Uploaddoc({ navigation }) {
                       >
                         <Feather name="info" size={24} color="#404040" />
                       </View>
+
                       <Text
                         style={{
                           color: "#989898",
