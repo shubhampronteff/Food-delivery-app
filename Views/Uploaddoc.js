@@ -17,10 +17,10 @@ import {
   TouchableHighlight,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import * as Permissions from "expo-permissions";
 import { Feather } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 const ht = Dimensions.get("window").height;
 const wd = Dimensions.get("window").width;
 
@@ -31,7 +31,9 @@ function Uploaddoc({ navigation }) {
   const [expdate, setExpDate] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisible1, setModalVisible1] = useState(false);
-  const [date, setDate] = useState("");
+  const [show, setShow] = useState(false);
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
   const keyboardVerticalOffset =
     Platform.OS === "android" ? ht * 0.25 : -ht * 0.1;
 
@@ -101,6 +103,33 @@ function Uploaddoc({ navigation }) {
       setModalVisible1(false);
     }
   };
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    // console.warn("A date has been picked: ", date);
+    try {
+      const a = date.getMonth() + 1;
+      console.log(a);
+      const b = date.getDate();
+      console.log(b);
+      const c = date.getFullYear();
+      console.log(c);
+      const sel = b + "/" + a + "/" + c;
+      console.log(typeof sel);
+      setExpDate(sel);
+      hideDatePicker();
+    } catch (ex) {
+      console.warn(ex.message);
+    }
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -120,7 +149,7 @@ function Uploaddoc({ navigation }) {
               alignItems: "center",
             }}
           >
-            <TouchableOpacity style={{ flex: 1 }}>
+            <TouchableOpacity onPress={()=> navigation.navigate("SignUp")} style={{ flex: 1 }}>
               <Feather name="arrow-left" size={24} color="black" />
             </TouchableOpacity>
             <View
@@ -373,9 +402,13 @@ function Uploaddoc({ navigation }) {
                         placeholderTextColor="black"
                         style={styles.inputfields}
                         selectionColor="white"
-                        onChangeText={(text) => setExpDate(text)}
+                        value={expdate}
+                        // editable={false}
+                        // onChangeText={(text) => setExpDate(text)}
                       />
-                      <View
+
+                      <TouchableOpacity
+                        onPress={showDatePicker}
                         style={{
                           position: "absolute",
                           right: wd * 0.02,
@@ -387,7 +420,13 @@ function Uploaddoc({ navigation }) {
                           size={24}
                           color="#404040"
                         />
-                      </View>
+                      </TouchableOpacity>
+                      <DateTimePickerModal
+                        isVisible={isDatePickerVisible}
+                        mode="date"
+                        onConfirm={handleConfirm}
+                        onCancel={hideDatePicker}
+                      />
                     </View>
                     <TouchableOpacity
                       onPress={() => navigation.navigate("Login")}

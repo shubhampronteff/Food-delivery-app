@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Dimensions,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Switch,
   Image,
+  ActivityIndicator,
 } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -26,6 +27,7 @@ function Home({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const [isEnabled1, setIsEnabled1] = useState(false);
   const [dropdown, setDropDown] = useState(false);
+  const [load, setLoad] = useState(true);
   const [coords, setCoords] = useState({
     latitude: 17.4387,
     longitude: 78.3946,
@@ -48,7 +50,21 @@ function Home({ navigation }) {
     setIsEnabled1((previousState) => !previousState);
   };
   console.log("dropdown", dropdown);
-  return (
+
+  useEffect(() => {
+    const eff = setTimeout(() => {
+      setLoad(false);
+    }, 3000);
+    return () => {
+      clearInterval(eff);
+    };
+  }, []);
+
+  return load ? (
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <ActivityIndicator size="large" color="#0000ff" />
+    </View>
+  ) : (
     <View>
       <StatusBar barStyle="light-content" backgroundColor="#000000" />
       {/* Header Starts */}
