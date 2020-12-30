@@ -15,6 +15,8 @@ import {
   KeyboardAvoidingView,
   Modal,
   TouchableHighlight,
+  ActivityIndicator,
+  Alert,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { Feather } from "@expo/vector-icons";
@@ -33,7 +35,7 @@ function Uploaddoc({ navigation }) {
   const [modalVisible1, setModalVisible1] = useState(false);
   const [show, setShow] = useState(false);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
+  const [modalVisible2, setModalVisible2] = useState(false);
   const keyboardVerticalOffset =
     Platform.OS === "android" ? ht * 0.25 : -ht * 0.1;
 
@@ -129,7 +131,16 @@ function Uploaddoc({ navigation }) {
       console.warn(ex.message);
     }
   };
+  const handleSubmit = async () => {
+    const eff = setTimeout(() => {
+      setModalVisible2(false);
+      navigation.navigate("Login");
+    }, 5000);
 
+    return () => {
+      clearInterval(eff);
+    };
+  };
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -149,7 +160,10 @@ function Uploaddoc({ navigation }) {
               alignItems: "center",
             }}
           >
-            <TouchableOpacity onPress={()=> navigation.navigate("SignUp")} style={{ flex: 1 }}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("SignUp")}
+              style={{ flex: 1 }}
+            >
               <Feather name="arrow-left" size={24} color="black" />
             </TouchableOpacity>
             <View
@@ -429,7 +443,10 @@ function Uploaddoc({ navigation }) {
                       />
                     </View>
                     <TouchableOpacity
-                      onPress={() => navigation.navigate("Login")}
+                      onPress={() => {
+                        setModalVisible2(true);
+                        handleSubmit();
+                      }}
                       style={{
                         backgroundColor: "#FFC928",
                         width: wd * 0.8,
@@ -628,6 +645,67 @@ function Uploaddoc({ navigation }) {
                     Cancel
                   </Text>
                 </TouchableHighlight>
+              </View>
+            </View>
+          </Modal>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible2}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+            }}
+          >
+            <View
+              style={{
+                width: wd * 1,
+                height: ht * 1,
+                backgroundColor: "black",
+                position: "absolute",
+                justifyContent: "center",
+                alignItems: "center",
+                opacity: 0.6,
+              }}
+            ></View>
+            <View
+              style={{
+                width: wd * 0.8,
+                height: ht * 0.2,
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "white",
+                borderRadius: ht * 0.005,
+                position: "absolute",
+                top: ht * 0.4,
+                left: wd * 0.1,
+              }}
+            >
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontWeight: "bold" }}>Loading</Text>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  // justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontWeight: "700" }}>Please Wait...</Text>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <ActivityIndicator size="large" color="#0000ff" />
               </View>
             </View>
           </Modal>
