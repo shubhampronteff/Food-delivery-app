@@ -648,6 +648,7 @@ function Uploaddoc({ navigation }) {
               </View>
             </View>
           </Modal>
+          {/* Loader popup Starts */}
           <Modal
             animationType="slide"
             transparent={true}
@@ -709,6 +710,7 @@ function Uploaddoc({ navigation }) {
               </View>
             </View>
           </Modal>
+          {/* Loader popup Ends */}
         </View>
       </View>
     </TouchableWithoutFeedback>
